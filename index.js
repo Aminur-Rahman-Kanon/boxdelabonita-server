@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:3000', 'https://github.com/Aminur-Rahman-Kanon/boxdelabonita-client'],
-               default: 'https://github.com/Aminur-Rahman-Kanon/boxdelabonita-client'
+app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com'],
+               default: 'https://boxdelabonita-client.onrender.com'
              }));
 app.use(express.json());
 
