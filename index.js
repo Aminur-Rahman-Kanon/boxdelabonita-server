@@ -11,10 +11,13 @@ app.use(express.json());
 
 const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
+const fetchProduct = require('./routes/fetchProduct');
+const fetchRelatedProduct = require('./routes/fetch-related-product');
 
 app.use('/fetch-products/:type', fetchProducts);
 app.use('/hotdeals-products', hotdealsProduct);
-
+app.use('/fetch-product/:product', fetchProduct);
+app.use('/fetch-related-products/:category', fetchRelatedProduct);
 
 mongoose.connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
@@ -28,4 +31,4 @@ app.listen(process.env.PORT || '8080', (err) => {
     }
 
     console.log('server is listening to port 8080');
-})
+});
