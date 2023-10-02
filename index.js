@@ -3,11 +3,19 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const { productModel } = require('./schema/schema');
+
 const app = express();
 app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com'],
                default: 'https://boxdelabonita-client.onrender.com'
              }));
 app.use(express.json());
+
+// productModel.updateMany({ category: 'Bucket bag' }, {
+//     $set: {
+//         category: 'bucket bag'
+//     }
+// }).then(re => console.log(re)).catch(err => console.log(err));
 
 const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
