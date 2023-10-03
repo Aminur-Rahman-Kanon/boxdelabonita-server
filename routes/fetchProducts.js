@@ -5,9 +5,19 @@ const { productModel, hotDealsModel, newArrivalsModel, popularProductsModel, tre
 router.get('/', async (req, res) => {
     const params = req.params;
 
+    console.log(params);
+
     switch(params.type) {
         case 'new-arrivals':
             await newArrivalsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            break;
+
+        case 'popular-products':
+            await popularProductsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            break;
+
+        case 'hot-deals':
+            await hotDealsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'trending-products':
