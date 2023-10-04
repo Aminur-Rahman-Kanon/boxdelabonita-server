@@ -5,9 +5,11 @@ const { productModel, hotDealsModel, newArrivalsModel, popularProductsModel, tre
 router.get('/', async (req, res) => {
     const params = req.params;
 
-    console.log(params);
-
     switch(params.type) {
+        case 'all-bag':
+            await productModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            break;
+
         case 'new-arrivals':
             await newArrivalsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
@@ -48,7 +50,7 @@ router.get('/', async (req, res) => {
             await productModel.find({ category: 'saddle bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
-        case 'shoudler bag':
+        case 'shoulder bag':
             await productModel.find({ category: 'shoulder bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 

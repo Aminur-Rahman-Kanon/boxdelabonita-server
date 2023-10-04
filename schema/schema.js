@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const user = {
+    id: { type: String, required: true },
+    product: Object
+}
+
 const product = {
     stock: { type: Number, required: true },
     title: { type: String, required: true },
@@ -17,6 +22,7 @@ const product = {
     subCategory: { type: String, requied: true }
 }
 
+const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
 const hotDealsModel = mongoose.model('hot-deals', product);
 const newArrivalsModel = mongoose.model('new-arrivals', product);
@@ -24,5 +30,5 @@ const popularProductsModel = mongoose.model('popular-products', product);
 const trendingProductsModel = mongoose.model('trending-products', product);
 
 module.exports = {
-    productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel
+    userModel, productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel
 };

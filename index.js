@@ -6,22 +6,24 @@ require('dotenv').config();
 const { productModel } = require('./schema/schema');
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com'],
-               default: 'https://boxdelabonita-client.onrender.com'
+app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
+               default: 'https://www.boxdelabonita.com'
              }));
 app.use(express.json());
+app.set("trust proxy", true);
 
 // productModel.updateMany({ category: 'Bucket bag' }, {
 //     $set: {
 //         category: 'bucket bag'
 //     }
 // }).then(re => console.log(re)).catch(err => console.log(err));
-
+const initApp = require('./routes/init-app');
 const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
 const fetchProduct = require('./routes/fetchProduct');
 const fetchRelatedProduct = require('./routes/fetch-related-product');
 
+app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
 app.use('/hotdeals-products', hotdealsProduct);
 app.use('/fetch-product/:product', fetchProduct);
