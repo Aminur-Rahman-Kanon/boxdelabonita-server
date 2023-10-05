@@ -4,9 +4,9 @@ const { userModel } = require('../schema/schema')
 
 router.post('/', async (req, res) => {
     const { user, product } = req.body;
-    const userId = await userModel.findOne({ id: user });
+    const userId = await userModel.findOne({ deviceId: user });
+    console.log('foo');
     if (!userId || !product) return res.status(401).send('operation suspended');
-    
     //adding item
     if (userId.product){
         try {
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
                 existProduct.push(product);
                 const newProduct = {...userId.product};
                 newProduct[productTitle[0]] = existProduct;
-                await userModel.updateOne({ id: user }, {
+                await userModel.updateOne({ deviceId: user }, {
                     $set: {
                         product: newProduct
                     }
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
                 //product not exist
                 const existProduct = {...userId.product};
                 existProduct[product.title] = [product];
-                await userModel.updateOne({ id:user }, {
+                await userModel.updateOne({ deviceId:user }, {
                     $set: {
                         product: existProduct
                     }
@@ -41,10 +41,11 @@ router.post('/', async (req, res) => {
     }
     else {
         //add new product
+        console.log(userId);
         const products = {};
         try {
             products[product.title] = [product];
-            await userModel.updateOne({ id: user }, {
+            await userModel.updateOne({ deviceId: user }, {
                 $set: {
                     product: products
                 }

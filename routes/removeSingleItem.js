@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     if(!user || !item) return res.status(400).json({ status: 'failed' })
 
     try {
-        const products = await userModel.findOne({ id: user }).then(result => result.product);
+        const products = await userModel.findOne({ deviceId: user }).then(result => result.product);
         
         if (Object.keys(products).length){
             const product = products[item];
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
                 product.pop();
                 products[item] = product;
                 
-                await userModel.updateOne({ id: user }, {
+                await userModel.updateOne({ deviceId: user }, {
                     $set: {
                         product: products
                     }
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
             else {
                 //delete entire collection
                 delete products[item];
-                await userModel.updateOne({ id: user }, {
+                await userModel.updateOne({ deviceId: user }, {
                     $set: {
                         product: products
                     }

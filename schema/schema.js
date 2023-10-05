@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const user = {
-    id: { type: String, required: true },
+    deviceId: String,
     product: Object
 }
 
