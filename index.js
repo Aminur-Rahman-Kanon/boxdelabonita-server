@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const bodyParser = require('body-parser');
 
 const { productModel } = require('./schema/schema');
 
@@ -10,6 +11,7 @@ app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.o
                default: 'https://www.boxdelabonita.com'
              }));
 app.use(express.json());
+app.use(bodyParser.json())
 app.set("trust proxy", true);
 
 // productModel.updateMany({ category: 'Bucket bag' }, {
@@ -22,12 +24,18 @@ const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
 const fetchProduct = require('./routes/fetchProduct');
 const fetchRelatedProduct = require('./routes/fetch-related-product');
+const addItem = require('./routes/add-item');
+const fetchCartItem = require('./routes/fetchCartitem');
+const removeSingleItem = require('./routes/removeSingleItem');
 
 app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
 app.use('/hotdeals-products', hotdealsProduct);
 app.use('/fetch-product/:product', fetchProduct);
 app.use('/fetch-related-products/:category', fetchRelatedProduct);
+app.use('/add-item', addItem);
+app.use('/fetch-cart-item', fetchCartItem);
+app.use('/remove-single-item', removeSingleItem);
 
 mongoose.connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
