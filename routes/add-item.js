@@ -3,14 +3,32 @@ const router = express.Router();
 const { userModel } = require('../schema/schema')
 
 router.post('/', async (req, res) => {
-    const { user, product } = req.body;
+    const { product } = req.body;
+    const user = req.ip;
+    
     const userId = await userModel.findOne({ deviceId: user });
-    console.log('foo');
-    if (!userId || !product) return res.status(401).send('operation suspended');
+    if (userId === null && !product.title) return res.status(401).json({ status: 'operation failed' });
+
     //adding item
-    if (userId.product){
-        try {
+    try {
+        const products = userId.product;
+        if (products === undefined){
+            //add new product
+            const products = {};
+            try {
+                products[product.title] = [product];
+                await userModel.updateOne({ deviceId: user }, {
+                    $set: {
+                        product: products
+                    }
+                }).then(result => res.status(200).send({ status: 'success' })).catch(err => res.status(400).send({ status: 'failed' }));
+            } catch (error) {
+                return res.status(500).send({ status: 'server error' });
+            }
+        }
+        else {
             const productTitle = Object.keys(userId.product).filter(title => title === product.title);
+            
             if (productTitle.length){
                 //product exist
                 const existProduct = userId.product[productTitle[0]];
@@ -35,24 +53,9 @@ router.post('/', async (req, res) => {
                 }).then(result => res.status(200).json({ status: 'success' }))
                 .catch(err => res.status(400).json({ status: 'failed' }))
             }
-        } catch (error) {
-            return res.status(500).json({ status: "failed" })
         }
-    }
-    else {
-        //add new product
-        console.log(userId);
-        const products = {};
-        try {
-            products[product.title] = [product];
-            await userModel.updateOne({ deviceId: user }, {
-                $set: {
-                    product: products
-                }
-            }).then(result => res.status(200).send({ status: 'success' })).catch(err => res.status(400).send({ status: 'failed' }));
-        } catch (error) {
-            return res.status(500).send({ status: 'server error' });
-        }
+    } catch (error) {
+        return res.status(500).json({ status: "failed" })
     }
 })
 

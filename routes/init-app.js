@@ -5,9 +5,16 @@ const { userModel } = require('../schema/schema')
 router.get('/', async (req, res) => {
     try {
         const userInfo = req.ip;
-        const user = await userModel.findOne({ deviceId: userInfo }).then(data => data)
+        const user = await userModel.findOne({ deviceId: userInfo }).then(data => {
+            if (data !== null){
+                return data;
+            }
+            else {
+                return {};
+            }
+        });
 
-        if (user){
+        if (Object.keys(user).length){
             return res.status(200).json({ deviceId: user.deviceId })
         }
         else {
