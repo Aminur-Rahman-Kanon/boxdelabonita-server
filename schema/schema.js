@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 const user = {
     deviceId: String,
-    product: Object
+    product: Object,
+    details: Object,
+    price: Number
 }
 
 const product = {
@@ -22,13 +24,20 @@ const product = {
     subCategory: { type: String, requied: true }
 }
 
+const placedOrder = {
+    orderInfo: {type: Object, required: true},
+    customerInfo: {type: Object, required: true},
+    products: {type: Object, required: true}
+}
+
 const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
 const hotDealsModel = mongoose.model('hot-deals', product);
 const newArrivalsModel = mongoose.model('new-arrivals', product);
 const popularProductsModel = mongoose.model('popular-products', product);
 const trendingProductsModel = mongoose.model('trending-products', product);
+const placeOrderModel = mongoose.model('orders', placedOrder);
 
 module.exports = {
-    userModel, productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel
+    userModel, productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel, placeOrderModel
 };

@@ -12,11 +12,14 @@ router.post('/', async (req, res) => {
         const user = await userModel.findOne({ deviceId });
         if (user.deviceId){
             const products = user.product;
-            if (products[title]){
+            const details = user.details;
+            if (products[title] && details[title]){
                 delete products[title];
+                delete details[title];
                 await userModel.updateOne({ deviceId }, {
                     $set: {
-                        product: products
+                        product: products,
+                        details: details
                     }
                 }).then(result => res.status(200).json({ status: 'success' })).catch(err => console.log(err));
             }

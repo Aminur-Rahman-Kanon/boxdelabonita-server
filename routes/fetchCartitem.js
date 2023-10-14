@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
                 return {};
             }
             else {
-                return result.product;
+                return result;
             }
         });
         

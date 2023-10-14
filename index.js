@@ -28,6 +28,7 @@ const addItem = require('./routes/add-item');
 const fetchCartItem = require('./routes/fetchCartitem');
 const removeSingleItem = require('./routes/removeSingleItem');
 const removeAllProducts = require('./routes/removeAllProducts');
+const placedOrder = require('./routes/place-order');
 
 app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
@@ -38,6 +39,7 @@ app.use('/add-item', addItem);
 app.use('/fetch-cart-item', fetchCartItem);
 app.use('/remove-single-item', removeSingleItem);
 app.use('/remove-all-products', removeAllProducts);
+app.use('/place-order', placedOrder);
 
 mongoose.connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
