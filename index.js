@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(bodyParser.json())
 app.set("trust proxy", true);
 
+const { userModel } = require('./schema/schema');
+
 // productModel.updateMany({ category: 'Bucket bag' }, {
 //     $set: {
 //         category: 'bucket bag'
@@ -29,6 +31,7 @@ const fetchCartItem = require('./routes/fetchCartitem');
 const removeSingleItem = require('./routes/removeSingleItem');
 const removeAllProducts = require('./routes/removeAllProducts');
 const placedOrder = require('./routes/place-order');
+const fetchPlacedOrder = require('./routes/fetchPlacedOrders');
 
 app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
@@ -40,12 +43,28 @@ app.use('/fetch-cart-item', fetchCartItem);
 app.use('/remove-single-item', removeSingleItem);
 app.use('/remove-all-products', removeAllProducts);
 app.use('/place-order', placedOrder);
+app.use('/fetch-placed-orders', fetchPlacedOrder);
 
 mongoose.connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
+
+// userModel.updateOne({ deviceId: '82.132.230.57' }, {
+//     $set: {
+//         user: {
+//             firstName: 'Test',
+//             lastName: 'User 1',
+//             address: 'test address',
+//             city: 'Dhaka',
+//             area: 'Jatrabari',
+//             email: 'test@test.com',
+//             phone: '01911343436',
+//         }
+//     }
+// }).then(result => console.log(result))
+// .catch(err => console.log(err));
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {

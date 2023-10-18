@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { placeOrderModel } = require('../schema/schema');
+const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
     const { name, address, email, phone, city, area, paymentMethod, totalPrice, deliveryCharge, userDetails } = req.body;
 
     if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
+
+    const deviceId = req.ip;
 
     const date = new Date().toDateString();
 
@@ -21,9 +24,12 @@ router.post('/', async (req, res) => {
 
     try {
         await placeOrderModel.create({
-            orderInfo, customerInfo, products: userDetails
+            deviceId, email, orderInfo, customerInfo, products: userDetails
         })
-        .then(response => res.status(200).json({ status: 'success', data: { date, orderId } }))
+        .then(response => {
+            return res.status(200).json({ status: 'success', data: { date, orderId} });
+            // sendOrderConfirmation(email, name, address, );
+        })
         .catch(err => res.status(400)).json({ status: 'failed' })
     } catch (error) {
         return res.status(500);

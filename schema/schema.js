@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const user = {
     deviceId: String,
+    user: Object,
     product: Object,
     details: Object,
     price: Number
@@ -13,7 +14,6 @@ const product = {
     rating: { type: Number, required: true },
     reviews: { type: Array, required: true },
     price: { type: Object, required: true },
-    // details: { type: String, required: true },
     deliveryTime: String,
     color: { type: Object, required: true },
     img: { type: Object, required: true },
@@ -25,6 +25,8 @@ const product = {
 }
 
 const placedOrder = {
+    deviceId: String,
+    email: String,
     orderInfo: {type: Object, required: true},
     customerInfo: {type: Object, required: true},
     products: {type: Object, required: true}
