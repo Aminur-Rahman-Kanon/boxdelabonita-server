@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
     const orderInfo = {
-        date, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'in process'
+        date, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'pending'
     }
     const customerInfo = {
         name, address, email, phone, city, area
