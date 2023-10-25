@@ -3,10 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const bodyParser = require('body-parser');
-
-const { productModel } = require('./schema/schema');
-
 const app = express();
+
 app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
              }));
@@ -14,13 +12,6 @@ app.use(express.json());
 app.use(bodyParser.json())
 app.set("trust proxy", true);
 
-const { userModel } = require('./schema/schema');
-
-// productModel.updateMany({ category: 'Bucket bag' }, {
-//     $set: {
-//         category: 'bucket bag'
-//     }
-// }).then(re => console.log(re)).catch(err => console.log(err));
 const initApp = require('./routes/init-app');
 const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
@@ -50,21 +41,6 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
-
-// userModel.updateOne({ deviceId: '82.132.230.57' }, {
-//     $set: {
-//         user: {
-//             firstName: 'Test',
-//             lastName: 'User 1',
-//             address: 'test address',
-//             city: 'Dhaka',
-//             area: 'Jatrabari',
-//             email: 'test@test.com',
-//             phone: '01911343436',
-//         }
-//     }
-// }).then(result => console.log(result))
-// .catch(err => console.log(err));
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {
