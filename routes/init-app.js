@@ -18,8 +18,8 @@ router.get('/', async (req, res) => {
             return res.status(200).json({ deviceId: user.deviceId })
         }
         else {
-            const time = new Date().toDateString();
-            await userModel.create({ deviceId: userInfo, time })
+            // const time = new Date().toDateString();
+            await userModel.create({ deviceId: userInfo })
             .then(result => res.status(200).json({ deviceId: userInfo }))
             .catch(err => res.status(403).json({ status: 'something went wrong' }));
         }
