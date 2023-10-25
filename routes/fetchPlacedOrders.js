@@ -6,12 +6,16 @@ router.post('/', async (req, res) => {
     const { email } = req.body;
     const deviceId = req.ip;
 
-    try {
-        const orders = await placeOrderModel.findOne({ email });
-        if (orders) return res.status(200).json({ status: 'success', data: orders });
+    console.log(email);
 
-        const order = await placeOrderModel.findOne({ deviceId });
-        if (!order) return res.status(400).json({ status: 'failed' })
+    try {
+        const orders = await placeOrderModel.find({ email });
+        console.log(orders);
+        if (orders.length) return res.status(200).json({ status: 'success', data: orders });
+
+        const order = await placeOrderModel.find({ deviceId });
+        console.log(order);
+        if (!order.length) return res.status(400).json({ status: 'failed' })
 
         return res.status(200).json({ status: 'success', data: order })
     } catch (error) {

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const user = {
     deviceId: String,
+    time: String,
     user: Object,
     product: Object,
     details: Object,

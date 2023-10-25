@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { placeOrderModel } = require('../schema/schema');
+const { placeOrderModel, userModel } = require('../schema/schema');
 const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
@@ -9,15 +9,12 @@ router.post('/', async (req, res) => {
     if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
 
     const deviceId = req.ip;
-
     const date = new Date().toDateString();
-
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
     const orderInfo = {
-        date, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge
+        date, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'in process'
     }
-
     const customerInfo = {
         name, address, email, phone, city, area
     }
@@ -26,7 +23,12 @@ router.post('/', async (req, res) => {
         await placeOrderModel.create({
             deviceId, email, orderInfo, customerInfo, products: userDetails
         })
-        .then(response => {
+        .then(async response => {
+            await userModel.updateOne({ deviceId }, {
+                $set: {
+                    user: customerInfo
+                }
+            })
             return res.status(200).json({ status: 'success', data: { date, orderId} });
             // sendOrderConfirmation(email, name, address, );
         })
