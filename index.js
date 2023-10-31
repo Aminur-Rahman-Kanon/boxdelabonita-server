@@ -37,6 +37,7 @@ app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 
 mongoose.connect(process.env.MONGO_URI, {
+    autoIndex: false,
     serverSelectionTimeoutMS: 5000,
     useNewUrlParser: true,
     useUnifiedTopology: true
