@@ -24,18 +24,25 @@ router.post('/', async (req, res) => {
             deviceId, email, orderInfo, customerInfo, products: userDetails
         })
         .then(async response => {
-            await userModel.updateOne({ deviceId }, {
-                $set: {
-                    user: customerInfo
-                }
+            const user = await userModel.findOne({ deviceId });
+            if (!user) return res.status(400).json({ status: 'user not found' })
+            const userObj = JSON.parse(JSON.stringify(user));
+            delete userObj.details;
+            delete userObj.product;
+            userObj['user'] = customerInfo;
+
+            await userModel.replaceOne({ deviceId }, {
+                ...userObj
+            }).then(async suc => {
+                sendOrderConfirmation(customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge);
+                return res.status(200).json({ status: 'success', data: { date, orderId} });
+            }).catch(err => {
+                return res.status(400).json({ status: 'failed' })
             })
-            return res.status(200).json({ status: 'success', data: { date, orderId} });
-            // sendOrderConfirmation(email, name, address, );
         })
         .catch(err => res.status(400)).json({ status: 'failed' })
     } catch (error) {
         return res.status(500);
     }
 })
-
 module.exports = router;

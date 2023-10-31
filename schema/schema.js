@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const user = {
-    deviceId: String,
+    deviceId: {type: String, index: { unique: true }},
     time: String,
     user: Object,
     product: Object,
@@ -26,8 +26,8 @@ const product = {
 }
 
 const placedOrder = {
-    deviceId: String,
-    email: String,
+    deviceId: {type: String, index: { unique: true }},
+    email: {type: String, index: { unique: true }},
     orderInfo: {type: Object, required: true},
     customerInfo: {type: Object, required: true},
     products: {type: Object, required: true}
