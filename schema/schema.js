@@ -26,8 +26,8 @@ const product = {
 }
 
 const placedOrder = {
-    deviceId: {type: String, index: { unique: true }},
-    email: {type: String, index: { unique: true }},
+    deviceId: {type: String, index: true},
+    email: {type: String, index: true},
     orderInfo: {type: Object, required: true},
     customerInfo: {type: Object, required: true},
     products: {type: Object, required: true}
