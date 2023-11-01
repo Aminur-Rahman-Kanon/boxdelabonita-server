@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const user = {
-    deviceId: {type: String, index: { unique: true }},
+    deviceId: {type: String, index: true},
     time: String,
     user: Object,
     product: Object,
@@ -11,7 +11,7 @@ const user = {
 
 const product = {
     stock: { type: Number, required: true },
-    title: { type: String, required: true },
+    title: { type: String, required: true, index: true },
     rating: { type: Number, required: true },
     reviews: { type: Array, required: true },
     price: { type: Object, required: true },
@@ -21,8 +21,8 @@ const product = {
     description: { type: String, required: true },
     customerReviews: Array,
     purchased: Number,
-    category: { type: String, requied: true },
-    subCategory: { type: String, requied: true }
+    category: { type: String, requied: true, index: true },
+    subCategory: { type: String, requied: true, index: true }
 }
 
 const placedOrder = {
