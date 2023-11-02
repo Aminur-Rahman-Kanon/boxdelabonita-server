@@ -42,11 +42,6 @@ app.use('/remove-all-products', removeAllProducts);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 
-const { hotDealsModel } = require('./schema/schema');
-
-hotDealsModel.find().explain('executionStats').then(ex => console.log(ex))
-
-
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {
         console.log(err);
