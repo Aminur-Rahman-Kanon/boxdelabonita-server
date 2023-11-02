@@ -12,6 +12,12 @@ app.use(express.json());
 app.use(bodyParser.json())
 app.set("trust proxy", true);
 
+mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
+
 const initApp = require('./routes/init-app');
 const fetchProducts = require('./routes/fetchProducts');
 const hotdealsProduct = require('./routes/hotDealsProducts');
@@ -36,12 +42,10 @@ app.use('/remove-all-products', removeAllProducts);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 
-mongoose.connect(process.env.MONGO_URI, {
-    autoIndex: false,
-    serverSelectionTimeoutMS: 5000,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
+const { hotDealsModel } = require('./schema/schema');
+
+hotDealsModel.find().explain('executionStats').then(ex => console.log(ex))
+
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {

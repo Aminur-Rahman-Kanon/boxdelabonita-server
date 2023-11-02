@@ -22,7 +22,7 @@ const product = {
     customerReviews: Array,
     purchased: Number,
     category: { type: String, requied: true, index: true },
-    subCategory: { type: String, requied: true, index: true }
+    subCategory: { type: String, requied: true }
 }
 
 const placedOrder = {
