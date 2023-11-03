@@ -7,59 +7,59 @@ router.get('/', async (req, res) => {
 
     switch(params.type) {
         case 'all-bag':
-            await productModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'new-arrivals':
-            await newArrivalsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await newArrivalsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'popular-products':
-            await popularProductsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await popularProductsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'hot-deals':
-            await hotDealsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await hotDealsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'trending-products':
-            await trendingProductsModel.find({}).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await trendingProductsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'bucket bag':
-            await productModel.find({ category: 'bucket bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'bucket bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'backpack':
-            await productModel.find({ category: 'backpack' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'backpack' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'clutch bag':
-            await productModel.find({ category: 'clutch bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'clutch bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'crossbody bag':
-            await productModel.find({ category: 'crossbody bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'crossbody bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'designer bag':
-            await productModel.find({ category: 'designer bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'designer bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'saddle bag':
-            await productModel.find({ category: 'saddle bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'saddle bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'shoulder bag':
-            await productModel.find({ category: 'shoulder bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'shoulder bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         case 'straw bag':
-            await productModel.find({ category: 'straw bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await productModel.find({ category: 'straw bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
-        case 'belt bag & sling bag':
-            await productModel.find({ category: 'straw bag' }).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+        case 'belt & sling bag':
+            await productModel.find({ category: 'straw bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
             break;
 
         default:
