@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const user = {
+const user = new Schema({
     deviceId: {type: String, index: true},
     time: String,
     user: Object,
     product: Object,
     details: Object,
     price: Number
-}
+})
 
-const product = {
+const product = new Schema({
     stock: { type: Number, required: true },
     title: { type: String, required: true, index: true },
     rating: { type: Number, required: true },
@@ -23,15 +24,15 @@ const product = {
     purchased: Number,
     category: { type: String, requied: true, index: true },
     subCategory: { type: String, requied: true }
-}
+})
 
-const placedOrder = {
+const placedOrder = new Schema({
     deviceId: {type: String, index: true},
     email: {type: String, index: true},
     orderInfo: {type: Object, required: true},
     customerInfo: {type: Object, required: true},
     products: {type: Object, required: true}
-}
+})
 
 const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
