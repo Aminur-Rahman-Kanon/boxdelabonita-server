@@ -1,69 +1,111 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel } = require('../schema/schema')
+const pool = require('../db/db_init');
 
 router.get('/', async (req, res) => {
     const params = req.params;
 
     switch(params.type) {
-        case 'all-bag':
-            await productModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+        case 'all-bags':
+            await pool.query('SELECT * FROM product;', (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows })
+            })
             break;
 
         case 'new-arrivals':
-            await newArrivalsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE subcategory = 'new arrivals'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'popular-products':
-            await popularProductsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE subcategory = 'popular products'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'hot-deals':
-            await hotDealsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE subcategory = 'hot deals'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
-        case 'trending-products':
-            await trendingProductsModel.find().limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+        case 'trending':
+            await pool.query(`SELECT * FROM product WHERE subcategory = 'trending products'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'bucket bag':
-            await productModel.find({ category: 'bucket bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'bucket bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'backpack':
-            await productModel.find({ category: 'backpack' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'backpack'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'clutch bag':
-            await productModel.find({ category: 'clutch bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'clutch bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'crossbody bag':
-            await productModel.find({ category: 'crossbody bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'crossbody bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'designer bag':
-            await productModel.find({ category: 'designer bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'designer bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'saddle bag':
-            await productModel.find({ category: 'saddle bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'saddle bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'shoulder bag':
-            await productModel.find({ category: 'shoulder bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'shoulder bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'straw bag':
-            await productModel.find({ category: 'straw bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'straw bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         case 'belt & sling bag':
-            await productModel.find({ category: 'straw bag' }).limit(6).skip(0).lean().then(result => res.status(200).send(result)).catch(err => res.status(401));
+            await pool.query(`SELECT * FROM product WHERE category = 'belt bag & sling bag'`, (err, result) => {
+                if (err) return res.status(400).json({ status: 'failed' });
+                return res.status(200).json({ status: 'success', data: result.rows });
+            })
             break;
 
         default:
-            return res.status(400);
+            return res.status(400).json({ status: 'invalid request' });
     }
 })
 
