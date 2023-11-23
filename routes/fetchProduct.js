@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const { productModel } = require('../schema/schema');
-const pool = require('../db/db_init');
+// const pool = require('../db/db_init');
 
 router.get('/', async (req, res) => {
     const params = req.params;
