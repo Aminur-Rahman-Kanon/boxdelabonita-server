@@ -1,4 +1,13 @@
 const nodeMailer = require('nodemailer');
+const https = require('https');
+
+function cronJob (){
+    setInterval(() => {
+        https.get('https://boxdelabonita-client.onrender.com', (res) => {
+            console.log('pinging...');
+        })
+    }, 600000);
+}
 
 function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge) {
     let productDetails;
@@ -64,5 +73,6 @@ function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalP
 }
 
 module.exports = {
-    sendOrderConfirmation
+    sendOrderConfirmation,
+    cronJob
 }

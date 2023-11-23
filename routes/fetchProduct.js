@@ -7,10 +7,9 @@ router.get('/', async (req, res) => {
     const params = req.params;
 
     try {
-        await pool.query(`SELECT * FROM product WHERE title = '${params.product}'`, (err, result) => {
-            if (err) return res.status(400).json({ status: 'failed' });
-            return res.status(200).json({ status: 'success', data: result.rows });
-        })
+        await productModel.find({ title: params.product }).lean()
+        .then(result => res.status(200).json({ status: 'success', data: result }))
+        .catch(err => res.status(400).json({ status: 'failed' }));
     } catch (error) {
         console.log(error);
         return res.status(401);
