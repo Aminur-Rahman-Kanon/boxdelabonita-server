@@ -6,7 +6,7 @@ function cronJob (){
         https.get('https://boxdelabonita-server-13dd.onrender.com', (res) => {
             console.log('pinging...');
         })
-    }, 600000);
+    }, 840000);
 }
 
 function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge) {
