@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const user = new Schema({
-    deviceId: {type: String, index: true},
+    deviceId: String,
     time: String,
     user: Object,
     product: Object,

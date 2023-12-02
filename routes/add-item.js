@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
                 const productDetails = {
                     title: product.title,
                     color: [color],
-                    img: product.img[color],
+                    img: product.img[0],
                     quantity: 1,
                     price
                 }
@@ -72,7 +72,7 @@ router.post('/', async (req, res) => {
                     const newDetails = {
                         title: product.title,
                         color: [color],
-                        img: product.img[color],
+                        img: product.img[0],
                         quantity: 1,
                         price
                     };

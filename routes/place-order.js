@@ -30,7 +30,6 @@ router.post('/', async (req, res) => {
             delete userObj.details;
             delete userObj.product;
             userObj['user'] = customerInfo;
-
             await userModel.replaceOne({ deviceId }, {
                 ...userObj
             }).then(async suc => {
