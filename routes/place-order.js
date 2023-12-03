@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { placeOrderModel, userModel } = require('../schema/schema');
+const { placeOrderModel, userModel, productModel } = require('../schema/schema');
 const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
@@ -21,15 +21,17 @@ router.post('/', async (req, res) => {
 
     try {
         await placeOrderModel.create({
-            deviceId, email, orderInfo, customerInfo, products: userDetails
+            deviceId: deviceId, email: email, orderInfo: orderInfo, customerInfo: customerInfo, products: userDetails
         })
         .then(async response => {
             const user = await userModel.findOne({ deviceId });
             if (!user) return res.status(400).json({ status: 'user not found' })
             const userObj = JSON.parse(JSON.stringify(user));
-            delete userObj.details;
-            delete userObj.product;
-            userObj['user'] = customerInfo;
+            if (userObj.details || userDetails.product){
+                delete userObj.details;
+                delete userObj.product;
+                userObj['user'] = customerInfo;
+            }
             await userModel.replaceOne({ deviceId }, {
                 ...userObj
             }).then(async suc => {

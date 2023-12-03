@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const app = express();
-const { cronJob, test } = require('./utilities/utilities');
+const { cronJob } = require('./utilities/utilities');
 
 app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
@@ -21,7 +21,6 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const initApp = require('./routes/init-app');
 const fetchProducts = require('./routes/fetchProducts');
-const hotdealsProduct = require('./routes/hotDealsProducts');
 const fetchProduct = require('./routes/fetchProduct');
 const fetchRelatedProduct = require('./routes/fetch-related-product');
 const addItem = require('./routes/add-item');
@@ -37,7 +36,6 @@ app.get('/', (req, res) => {
 
 app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
-app.use('/hotdeals-products', hotdealsProduct);
 app.use('/fetch-product/:product', fetchProduct);
 app.use('/fetch-related-products/:category', fetchRelatedProduct);
 app.use('/add-item', addItem);

@@ -27,21 +27,17 @@ const product = new Schema({
 })
 
 const placedOrder = new Schema({
-    deviceId: {type: String, index: true},
-    email: {type: String, index: true},
-    orderInfo: {type: Object, required: true},
-    customerInfo: {type: Object, required: true},
-    products: {type: Object, required: true}
+    deviceId: {type: String, unique: false},
+    email: {type: String},
+    orderInfo: {type: Object},
+    customerInfo: {type: Object},
+    products: {type: Object}
 })
 
 const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
-const hotDealsModel = mongoose.model('hot-deals', product);
-const newArrivalsModel = mongoose.model('new-arrivals', product);
-const popularProductsModel = mongoose.model('popular-products', product);
-const trendingProductsModel = mongoose.model('trending-products', product);
 const placeOrderModel = mongoose.model('orders', placedOrder);
 
 module.exports = {
-    userModel, productModel, hotDealsModel, newArrivalsModel, popularProductsModel, trendingProductsModel, placeOrderModel
+    userModel, productModel, placeOrderModel
 };

@@ -9,7 +9,7 @@ function cronJob (){
     }, 840000);
 }
 
-function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge) {
+async function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge) {
     let productDetails;
     if (Object.values(userDetails).length){
         productDetails = Object.values(userDetails).map((item, idx) => `<div style="width: 100%;">
@@ -64,7 +64,7 @@ function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalP
             if (error) {
                 console.log(error)
             } else {
-                console.log(info);
+                console.log(info.response);
             }
         });
     } catch (error) {
