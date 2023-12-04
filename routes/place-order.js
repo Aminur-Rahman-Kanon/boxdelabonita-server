@@ -9,11 +9,12 @@ router.post('/', async (req, res) => {
     if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
 
     const deviceId = req.ip;
-    const date = new Date().toDateString();
+    const date = new Date();
+    const dateTime = `${date.toDateString()} ${date.toTimeString()}`;
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
     const orderInfo = {
-        date, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'pending'
+        dateTime, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'pending'
     }
     const customerInfo = {
         name, address, email, phone, city, area
