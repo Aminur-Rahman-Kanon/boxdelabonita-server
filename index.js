@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
 app.use('/fetch-product/:product', fetchProduct);
-app.use('/fetch-related-products/:category', fetchRelatedProduct);
+app.use('/fetch-related-products', fetchRelatedProduct);
 app.use('/add-item', addItem);
 app.use('/fetch-cart-item', fetchCartItem);
 app.use('/remove-single-item', removeSingleItem);
