@@ -7,59 +7,98 @@ router.get('/', async (req, res) => {
 
     switch(params.type) {
         case 'all-bags':
-            await productModel.find().lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find().lean().then(result => res.status(200).json({ status: 'success', data: { product: result } })).catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'new-arrivals':
-            await productModel.find({ subCategory: 'new arrivals' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ subCategory: 'new arrivals' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'popular-products':
-            await productModel.find({ subCategory: 'popular products' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ subCategory: 'popular products' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'hot-deals':
-            await productModel.find({ subCategory: 'hot deals' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ subCategory: 'hot deals' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'trending':
-            await productModel.find({ subCategory: 'trending products' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ subCategory: 'trending products' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'bucket bag':
-            await productModel.find({ category: 'bucket bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'bucket bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'backpack':
-            await productModel.find({ category: 'backpack' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'backpack' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'clutch bag':
-            await productModel.find({ category: 'clutch bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'clutch bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'crossbody bag':
-            await productModel.find({ category: 'crossbody bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'crossbody bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'designer bag':
-            await productModel.find({ category: 'designer bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'designer bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'saddle bag':
-            await productModel.find({ category: 'saddle bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'saddle bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'shoulder bag':
-            await productModel.find({ category: 'shoulder bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'shoulder bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'straw bag':
-            await productModel.find({ category: 'straw bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'straw bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         case 'belt & sling bag':
-            await productModel.find({ category: 'belt bag & sling bag' }).lean().then(result => res.status(200).json({ status: 'success', data: result })).catch(err => res.status(400).json({ status: 'failed' }))
+            await productModel.find({ category: 'belt bag & sling bag' }).lean().then(async result => {
+                await productModel.find().limit(10).lean().then(otherProducts => res.status(200).json({ status: 'success', data: { product:result, others: otherProducts }}))
+            })
+            .catch(err => res.status(400).json({ status: 'failed' }))
             break;
 
         default:
