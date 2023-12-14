@@ -4,7 +4,7 @@ const { placeOrderModel, userModel, productModel } = require('../schema/schema')
 const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
-    const { name, address, email, phone, city, area, paymentMethod, totalPrice, deliveryCharge, userDetails } = req.body;
+    const { name, address, email, phone, city, paymentMethod, totalPrice, deliveryCharge, userDetails } = req.body;
 
     if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
 
@@ -14,10 +14,10 @@ router.post('/', async (req, res) => {
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
     const orderInfo = {
-        dateTime, orderId, paymentMethod, totalPrice, deliveryLocation: { city, area }, deliveryCharge, orderStatus: 'pending'
+        dateTime, orderId, paymentMethod, totalPrice, deliveryLocation: { city }, deliveryCharge, orderStatus: 'pending'
     }
     const customerInfo = {
-        name, address, email, phone, city, area
+        name, address, email, phone, city
     }
 
     try {
