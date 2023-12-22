@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const getMac = require('getmac');
 const { userModel } = require('../schema/schema');
 
 router.post('/', async (req, res) => {
     const { item, price } = req.body;
-    const user = req.ip;
+    const user = getMac.default();
 
     if(!user && !item && !price) return res.status(400).json({ status: 'failed' })
 

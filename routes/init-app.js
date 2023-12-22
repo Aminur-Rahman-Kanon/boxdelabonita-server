@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { userModel } = require('../schema/schema')
+const { userModel } = require('../schema/schema');
+const getMac = require('getmac');
 
 router.get('/', async (req, res) => {
     try {
-        const userInfo = req.ip;
+        const userInfo = getMac.default();
+        if (!userInfo) return res.status(400).json({ status: 'no address found' });
+        
         const user = await userModel.findOne({ deviceId: userInfo }).lean().then(data => {
             if (data !== null){
                 return data;

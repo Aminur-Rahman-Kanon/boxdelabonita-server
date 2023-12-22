@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { userModel } = require('../schema/schema')
+const { userModel } = require('../schema/schema');
+const getMac = require('getmac');
 
 router.post('/', async (req, res) => {
     const { product, color } = req.body;
-    const user = req.ip;
+    const user = getMac.default();
     
     const userId = await userModel.findOne({ deviceId: user });
     if (userId === null && !product.title && !color) return res.status(401).json({ status: 'operation failed' });

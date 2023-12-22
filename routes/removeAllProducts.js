@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const getMac = require('getmac');
 const { userModel } = require('../schema/schema');
 
 router.post('/', async (req, res) => {
     const { title } = req.body;
-    const deviceId = req.ip;
+    const deviceId = getMac.default();
 
     if (!title) return res.status(400).json({ status: 'invalid request' });
 

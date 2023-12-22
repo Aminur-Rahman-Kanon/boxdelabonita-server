@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { userModel } = require('../schema/schema');
+const getMac = require('getmac');
 
 router.get('/', async (req, res) => {
-    const deviceId = req.ip;
+    const deviceId = getMac.default();
 
     try {
         const cartItem = await userModel.findOne({ deviceId:deviceId }).then(result => {

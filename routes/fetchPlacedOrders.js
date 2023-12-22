@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { placeOrderModel } = require('../schema/schema');
+const getMac = require('getmac');
 
 router.post('/', async (req, res) => {
     const { email } = req.body;
-    const deviceId = req.ip;
+    const deviceId = getMac.default();
 
     try {
         const orders = await placeOrderModel.find({ email });
