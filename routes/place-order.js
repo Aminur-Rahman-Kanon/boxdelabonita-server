@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { placeOrderModel, userModel, productModel } = require('../schema/schema');
-const getMac = require('getmac');
 const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
@@ -9,7 +8,7 @@ router.post('/', async (req, res) => {
 
     if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
 
-    const deviceId = getMac.default();
+    const deviceId = req.ip;
     const date = new Date();
     const dateTime = `${date.toDateString()} ${date.toTimeString()}`;
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
