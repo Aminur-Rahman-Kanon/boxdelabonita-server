@@ -8,7 +8,14 @@ router.post('/', async (req, res) => {
 
     try {
         await placeOrderModel.find({ phone: userInput })
-        .then(result => res.status(200).json({ data: result }))
+        .then(result => {
+            if (result.length){
+                return res.status(200).json({ data: result })
+            }
+            else {
+                return res.status(202).json({ status: 'not found' })
+            }
+        })
         .catch(err => res.status(400).json({ status: 'failed' }))
     } catch (error) {
         return res.status(500).json({ status: 'server error' });
