@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
         await placeOrderModel.find({ phone: userInput })
         .then(result => {
             if (result.length){
-                return res.status(200).json({ data: result })
+                return res.status(200).json({ status: 'success', data: result })
             }
             else {
                 return res.status(202).json({ status: 'not found' })
