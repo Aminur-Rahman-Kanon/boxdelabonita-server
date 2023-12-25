@@ -19,14 +19,10 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 }).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
 
-const initApp = require('./routes/init-app');
 const fetchProducts = require('./routes/fetchProducts');
 const fetchProduct = require('./routes/fetchProduct');
 const fetchRelatedProduct = require('./routes/fetch-related-product');
-const addItem = require('./routes/add-item');
 const fetchCartItem = require('./routes/fetchCartitem');
-const removeSingleItem = require('./routes/removeSingleItem');
-const removeAllProducts = require('./routes/removeAllProducts');
 const placedOrder = require('./routes/place-order');
 const fetchPlacedOrder = require('./routes/fetchPlacedOrders');
 const login = require('./routes/login');
@@ -35,14 +31,10 @@ app.get('/', (req, res) => {
     res.status(200);
 })
 
-app.use('/init-app', initApp);
 app.use('/fetch-products/:type', fetchProducts);
 app.use('/fetch-product/:product', fetchProduct);
 app.use('/fetch-related-products', fetchRelatedProduct);
-app.use('/add-item', addItem);
 app.use('/fetch-cart-item/:phone', fetchCartItem);
-app.use('/remove-single-item', removeSingleItem);
-app.use('/remove-all-products', removeAllProducts);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 app.use('/login', login);
