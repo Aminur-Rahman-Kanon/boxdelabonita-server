@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { placeOrderModel, userModel, productModel } = require('../schema/schema');
+const { placeOrderModel, userModel } = require('../schema/schema');
 const { sendOrderConfirmation } = require('../utilities/utilities');
 
 router.post('/', async (req, res) => {
-    const { name, address, email, phone, city, paymentMethod, totalPrice, deliveryCharge, userDetails } = req.body;
+    const { name, address, email, phone, city, paymentMethod, totalPrice, deliveryCharge, products } = req.body;
 
-    if (!name && !address && !email && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !userDetails) return res.status(400).json({ status: 'bad request' });
+    if (!name && !address && !phone && !paymentMethod && !totalPrice && !deliveryCharge && !products) return res.status(400).json({ status: 'bad request' });
 
-    const deviceId = req.ip;
     const date = new Date();
-    const dateTime = `${date.toDateString()} ${date.toTimeString()}`;
+    const dateTime = `${date.toDateString()} ${date.toUTCString()}`;
     const orderId = [...Array(12)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 
     const orderInfo = {
@@ -22,25 +21,11 @@ router.post('/', async (req, res) => {
 
     try {
         await placeOrderModel.create({
-            deviceId: deviceId, email: email, orderInfo: orderInfo, customerInfo: customerInfo, products: userDetails
+            email, phone, orderInfo: orderInfo, customerInfo: customerInfo, products
         })
         .then(async response => {
-            const user = await userModel.findOne({ deviceId });
-            if (!user) return res.status(400).json({ status: 'user not found' })
-            const userObj = JSON.parse(JSON.stringify(user));
-            if (userObj.details || userDetails.product){
-                delete userObj.details;
-                delete userObj.product;
-                userObj['user'] = customerInfo;
-            }
-            await userModel.replaceOne({ deviceId }, {
-                ...userObj
-            }).then(async suc => {
-                sendOrderConfirmation(customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge);
-                return res.status(200).json({ status: 'success', data: { date, orderId} });
-            }).catch(err => {
-                return res.status(400).json({ status: 'failed' })
-            })
+            await sendOrderConfirmation(customerInfo, products, paymentMethod, totalPrice, deliveryCharge);
+            return res.status(200).json({ status: 'success', data: { date, orderId} });
         })
         .catch(err => res.status(400)).json({ status: 'failed' })
     } catch (error) {

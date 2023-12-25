@@ -9,17 +9,18 @@ function cronJob (){
     }, 840000);
 }
 
-async function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, totalPrice, deliveryCharge) {
+async function sendOrderConfirmation (customerInfo, products, paymentMethod, totalPrice, deliveryCharge) {
     let productDetails;
-    if (Object.values(userDetails).length){
-        productDetails = Object.values(userDetails).map((item, idx) => `<div style="width: 100%;">
+    if (Object.values(products).length){
+        productDetails = Object.values(products).map((item, idx) => `<div style="width: 100%;">
             <h3 style="margin: 5px 0; color: black;">${idx+1}</h3>
             <div style="width: 100%;">
-                <img src=${item.img} alt=${item.title} style="width: 100px; height: 100px;"/>
-                <p style="margin: 5px 0; color: black;">Title: ${item.title}</p>
+                <img src=${item.product.img[0]} alt=${item.product.title} style="width: 100px; height: 100px;"/>
+                <p style="margin: 5px 0; color: black;">Title: ${item.product.title}</p>
                 <p style="margin: 5px 0; color: black;">Quantity: ${item.quantity}</p>
                 <div style="color: black;">color: ${item.color.map(clr => `<span style="margin: 0 5px; color: black;">${clr}</span>`)}</div>
-                <p style="margin: 5px 0; color: black;">Price: ${item.price}</p>
+                <p style="margin: 5px 0; color: black;">Item Price: &#2547;${item.price}</p>
+                <p style="margin: 5px 0; color: black;">Total Price: &#2547;${item.price * item.quantity}</p>
             </div>
         </div>`)
     }
@@ -45,13 +46,12 @@ async function sendOrderConfirmation (customerInfo, userDetails, paymentMethod, 
                     <p style="margin: 5px 0; color: black;">Address: ${customerInfo.address}</p>
                     <p style="margin: 5px 0; color: black;">Phone: ${customerInfo.phone}</p>
                     <p style="margin: 5px 0; color: black;">City: ${customerInfo.city}</p>
-                    <p style="margin: 5px 0; color: black;">Area: ${customerInfo.area}</p>
                 </div>
                 <div>
                     <h2 style="margin: 5px 0">Order Details</h2>
                     <p style="margin: 5px 0; color: black;">Payment Method: ${paymentMethod}</p>
-                    <p style="margin: 5px 0; color: black;">Delivery Charge: ${deliveryCharge}</p>
-                    <p style="margin: 5px 0; color: black;">Total Price: ${deliveryCharge + totalPrice}</p>
+                    <p style="margin: 5px 0; color: black;">Delivery Charge: &#2547;${deliveryCharge}</p>
+                    <p style="margin: 5px 0; color: black;">Total Price: &#2547;${deliveryCharge + totalPrice}</p>
                 </div>
                 <div style="width: 100%;">
                     <h2 style="margin: 5px 0; color: black;">Product Details</h2>

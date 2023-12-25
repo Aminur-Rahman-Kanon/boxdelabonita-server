@@ -14,20 +14,18 @@ const product = new Schema({
     stock: { type: Number, required: true },
     title: { type: String, required: true, index: true },
     rating: { type: Number, required: true },
-    reviews: { type: Array, required: true },
     price: { type: Object, required: true },
-    deliveryTime: String,
-    color: { type: Object, required: true },
-    img: { type: Object, required: true },
+    color: { type: Array, required: true },
+    img: { type: Array, required: true },
     description: { type: String, required: true },
     customerReviews: Array,
-    purchased: Number,
     category: { type: String, requied: true, index: true },
     subCategory: { type: String, requied: true }
 })
 
 const placedOrder = new Schema({
-    deviceId: {type: String, unique: false},
+    orderId: {type: String},
+    phone: {type: String },
     email: {type: String},
     orderInfo: {type: Object},
     customerInfo: {type: Object},

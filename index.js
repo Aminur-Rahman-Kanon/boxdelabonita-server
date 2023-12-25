@@ -29,6 +29,7 @@ const removeSingleItem = require('./routes/removeSingleItem');
 const removeAllProducts = require('./routes/removeAllProducts');
 const placedOrder = require('./routes/place-order');
 const fetchPlacedOrder = require('./routes/fetchPlacedOrders');
+const login = require('./routes/login');
 
 app.get('/', (req, res) => {
     res.status(200);
@@ -39,11 +40,12 @@ app.use('/fetch-products/:type', fetchProducts);
 app.use('/fetch-product/:product', fetchProduct);
 app.use('/fetch-related-products', fetchRelatedProduct);
 app.use('/add-item', addItem);
-app.use('/fetch-cart-item', fetchCartItem);
+app.use('/fetch-cart-item/:phone', fetchCartItem);
 app.use('/remove-single-item', removeSingleItem);
 app.use('/remove-all-products', removeAllProducts);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
+app.use('/login', login);
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {
