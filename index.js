@@ -19,9 +19,10 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 }).then(conn => console.log('database connected')).catch(err => console.log('database connection error'));
 
-const fetchProducts = require('./routes/fetchProducts');
-const fetchProduct = require('./routes/fetchProduct');
-const fetchRelatedProduct = require('./routes/fetch-related-product');
+const fetchAllProducts = require('./routes/fetchAllProducts');
+// const fetchProducts = require('./routes/fetchProducts');
+// const fetchProduct = require('./routes/fetchProduct');
+// const fetchRelatedProduct = require('./routes/fetch-related-product');
 const fetchCartItem = require('./routes/fetchCartitem');
 const placedOrder = require('./routes/place-order');
 const fetchPlacedOrder = require('./routes/fetchPlacedOrders');
@@ -31,9 +32,10 @@ app.get('/', (req, res) => {
     res.status(200);
 })
 
-app.use('/fetch-products/:type', fetchProducts);
-app.use('/fetch-product/:product', fetchProduct);
-app.use('/fetch-related-products', fetchRelatedProduct);
+app.use('/fetch-all-products', fetchAllProducts);
+// app.use('/fetch-products/:type', fetchProducts);
+// app.use('/fetch-product/:product', fetchProduct);
+// app.use('/fetch-related-products', fetchRelatedProduct);
 app.use('/fetch-cart-item/:phone', fetchCartItem);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
