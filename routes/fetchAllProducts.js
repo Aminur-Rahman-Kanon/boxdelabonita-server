@@ -4,8 +4,9 @@ const { productModel } = require('../schema/schema');
 
 router.get('/', async (req, res) => {
     try {
-        await productModel.find().lean().then(result => {
-            if (result.length){
+        await productModel.find().lean().then(response => {
+            if (response.length){
+                const result = response.reverse();
                 return res.status(200).json({ status: 'success', data: result })
             }
             else {
@@ -16,5 +17,6 @@ router.get('/', async (req, res) => {
         return res.status(500)
     }
 })
+
 
 module.exports = router;
