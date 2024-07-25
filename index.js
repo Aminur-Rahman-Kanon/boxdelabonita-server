@@ -27,6 +27,7 @@ const fetchCartItem = require('./routes/fetchCartitem');
 const placedOrder = require('./routes/place-order');
 const fetchPlacedOrder = require('./routes/fetchPlacedOrders');
 const login = require('./routes/login');
+const shortUrl = require('./routes/shortUrl');
 
 app.get('/', (req, res) => {
     res.status(200);
@@ -40,6 +41,7 @@ app.use('/fetch-cart-item/:phone', fetchCartItem);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 app.use('/login', login);
+app.use('/box/:itemId', shortUrl);
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {

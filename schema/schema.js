@@ -33,10 +33,15 @@ const placedOrder = new Schema({
     products: {type: Object}
 })
 
+const shortUrl = new Schema({
+    url: { type: String, required: true }
+});
+
 const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
 const placeOrderModel = mongoose.model('orders', placedOrder);
+const shortUrlModel = mongoose.model('shortUrl', shortUrl);
 
 module.exports = {
-    userModel, productModel, placeOrderModel
+    userModel, productModel, placeOrderModel, shortUrlModel
 };
