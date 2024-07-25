@@ -30,7 +30,7 @@ const login = require('./routes/login');
 const shortUrl = require('./routes/shortUrl');
 
 app.get('/', (req, res) => {
-    res.status(200);
+    res.status(200).json({ message: 'working good!' });
 })
 
 app.use('/fetch-all-products', fetchAllProducts);
