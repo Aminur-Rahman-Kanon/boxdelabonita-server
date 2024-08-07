@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'working good!' });
 })
 
-app.use('/:itemId', shortUrl);
+// app.use('/:itemId', shortUrl);
 app.use('/fetch-all-products', fetchAllProducts);
 // app.use('/fetch-products/:type', fetchProducts);
 // app.use('/fetch-product/:product', fetchProduct);
