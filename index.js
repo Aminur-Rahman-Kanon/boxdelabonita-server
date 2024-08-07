@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const { cronJob } = require('./utilities/utilities');
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
+app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com', 'boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
              }));
 app.use(express.json());
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'working good!' });
 })
 
+app.use('/:itemId', shortUrl);
 app.use('/fetch-all-products', fetchAllProducts);
 // app.use('/fetch-products/:type', fetchProducts);
 // app.use('/fetch-product/:product', fetchProduct);
@@ -41,7 +42,6 @@ app.use('/fetch-cart-item/:phone', fetchCartItem);
 app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 app.use('/login', login);
-app.use('/box/:itemId', shortUrl);
 
 app.listen(process.env.PORT || '8080', (err) => {
     if (err) {
