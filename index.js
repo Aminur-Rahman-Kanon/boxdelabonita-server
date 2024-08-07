@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const { cronJob } = require('./utilities/utilities');
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com', 'boxdelabonita.com'],
+app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
              }));
 app.use(express.json());
@@ -47,6 +47,6 @@ app.listen(process.env.PORT || '8080', (err) => {
     if (err) {
         console.log(err);
     }
-    cronJob();
+    // cronJob();
     console.log('server is listening to port 8080');
 });
