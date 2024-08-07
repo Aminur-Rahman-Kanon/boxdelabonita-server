@@ -43,10 +43,12 @@ app.use('/place-order', placedOrder);
 app.use('/fetch-placed-orders', fetchPlacedOrder);
 app.use('/login', login);
 
-app.listen(process.env.PORT || '8080', (err) => {
+const port = process.env.PORT || '8080';
+
+app.listen(port, (err) => {
     if (err) {
         console.log(err);
     }
     // cronJob();
-    console.log('server is listening to port 8080');
+    console.log(`server is listening to port ${port}`);
 });
