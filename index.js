@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita-client.onrender.com', 'https://www.boxdelabonita.com'],
+app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita.onrender.com', 'https://www.boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
              }));
+             
 app.use(express.json());
 app.use(bodyParser.json())
 app.set("trust proxy", true);
