@@ -22,7 +22,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
             }
 
             let imgs = resp.img;
-            if (!imgs){
+            if (!Object.keys(imgs || {}).length){
                 imgs = {};
             }
 
@@ -30,7 +30,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
             await productModel.updateOne({ title: data.title }, {
                 $set: {
-                    'img': {...imgs}
+                    'img': imgs
                 }
             }).then(fnl => res.status(200).json({ status: 'success' })).catch(err => res.status(400).json({ status: 'failed' }))
         }).catch(err => res.status(400).json({ status: 'failed' }));
