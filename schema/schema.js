@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const admin = new Schema({
+    email: { type: String, required: true },
+    password: { type: String, required: true }
+})
+
 const user = new Schema({
     deviceId: String,
     time: String,
@@ -37,11 +42,12 @@ const shortUrl = new Schema({
     url: { type: String, required: true }
 });
 
+const adminModel = mongoose.model('admin', admin);
 const userModel = mongoose.model('user', user);
 const productModel = mongoose.model('products', product);
 const placeOrderModel = mongoose.model('orders', placedOrder);
 const shortUrlModel = mongoose.model('shortUrl', shortUrl);
 
 module.exports = {
-    userModel, productModel, placeOrderModel, shortUrlModel
+    adminModel, userModel, productModel, placeOrderModel, shortUrlModel
 };
