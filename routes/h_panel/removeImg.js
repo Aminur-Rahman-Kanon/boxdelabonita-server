@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     if (!category && !!imgId && !title) return res.status(403).json({ status: 'bad request' })
 
     try {
-        const filePath = path.join(__dirname, '..', 'public', 'products', `${category}`, `${title}`, `${imgId}`);
+        const filePath = path.join(__dirname, '..', '..', 'public', 'products', `${category}`, `${title}`, `${imgId}`);
         const fileExist = fs.existsSync(filePath);
         if (fileExist){
             try {

@@ -12,7 +12,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
     //if no data then abort
     if (!data || !img) return res.status(400).status({ status: 'invalid request' })
-    const dir = path.join(__dirname, '..', `public/products/${data.category}`);
+    const dir = path.join(__dirname, '..', '..', `public/products/${data.category}`);
     const result = storeProductImg(dir, img, data.title, data.category);
 
     if (result.status === 'success' && result.url) {

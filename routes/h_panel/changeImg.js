@@ -12,7 +12,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
     if (!data && !img) return res.status(403).json({ status: 'invalid request' });
     
     try {
-        const filePath = path.join(__dirname, '..', 'public', 'products', `${data.category}`, `${data.title}`, `${data.imgId}`)
+        const filePath = path.join(__dirname, '..', '..', 'public', 'products', `${data.category}`, `${data.title}`, `${data.imgId}`)
         const fileExist = fs.existsSync(filePath);
         
         if (fileExist){

@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     if (!title && !category) return res.status(404).json({ status: 'bad request' })
     
     try {
-        const filePath = path.join(__dirname, '..', 'public', 'products', `${category}`, `${title}`);
+        const filePath = path.join(__dirname, '..', '..', 'public', 'products', `${category}`, `${title}`);
         fs.rmSync(filePath, { recursive: true, force: true }, err => {
             if (err) return res.status(404).json({ status: 'failed' })
         })
