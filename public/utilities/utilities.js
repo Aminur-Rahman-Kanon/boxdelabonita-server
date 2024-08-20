@@ -43,7 +43,7 @@ const storeProductImg = (dir, file, productTitle, category) => {
             //then save the file
             try {
                 saveFile(directory, file, fileName);
-                return { status: 'success', name: fileName, url: `https://boxdelabonita-server.onrender.com/products/${category}/${productTitle}/${fileName}` };
+                return { status: 'success', name: fileName, url: `https://boxdelabonita.com/api/products/${category}/${productTitle}/${fileName}` };
             } catch (error) {
                 return { status: 'file writing failed' }
             }
@@ -57,7 +57,7 @@ const storeProductImg = (dir, file, productTitle, category) => {
             })
             try {
                 saveFile(directory, file, fileName);
-                return { status: 'success', name: fileName, url: `https://boxdelabonita-server.onrender.com/products/${category}/${productTitle}/${fileName}` }
+                return { status: 'success', name: fileName, url: `https://boxdelabonita.com/api/products/${category}/${productTitle}/${fileName}` }
             } catch (error) {
                     return { status: 'file writing failed' };
             }
@@ -73,22 +73,15 @@ const storeProductImg = (dir, file, productTitle, category) => {
                 }
             })
             saveFile(directory, file, fileName);
-            return { status: 'success', name: fileName, url: `https://boxdelabonita-server.onrender.com/products/${category}/${productTitle}/${fileName}` }
+            return { status: 'success', name: fileName, url: `https://boxdelabonita.com/api/products/${category}/${productTitle}/${fileName}` }
         } catch (error) {
             return { status: 'failed' };
         }
     }
 }
 
-function cronJob () {
-    setInterval(() => {
-        https.get('https://boxdelabonita-server.onrender.com', (result) => {
-            console.log('pinging...')
-        })
-    }, 840000);
-}
 
 module.exports = {
-    cronJob, storeProductImg
+    storeProductImg
 }
 
