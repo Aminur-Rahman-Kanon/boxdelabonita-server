@@ -9,7 +9,7 @@ const path = require('path');
 app.use(cors({ origin: ['http://localhost:3000', 'https://boxdelabonita.onrender.com', 'https://www.boxdelabonita.com'],
                default: 'https://www.boxdelabonita.com'
              }));
-             
+
 app.use(express.json());
 app.use(bodyParser.json())
 app.set("trust proxy", true);
@@ -28,7 +28,8 @@ const login = require('./routes/login');
 const shortUrl = require('./routes/shortUrl');
 
 app.get('/', (req, res) => {
-    res.status(200).json({ message: 'working good!' });
+    const dir = path.join(__dirname, 'public')
+    res.status(200).json({ message: dir });
 })
 
 // app.use('/:itemId', shortUrl);
