@@ -25,11 +25,10 @@ const fetchAllProducts = require('./routes/fetchAllProducts');
 const fetchCartItem = require('./routes/fetchCartitem');
 const placedOrder = require('./routes/place-order');
 const login = require('./routes/login');
-const redirectUrl = require('./routes/redirect/redirect');
 
 app.get('/', (req, res) => {
     const dir = path.join(__dirname, 'public')
-    res.status(200).json({ message: dir });
+    res.status(200).json({ message: 'hello' });
 })
 
 // app.use('/:itemId', shortUrl);
@@ -37,7 +36,6 @@ app.use('/fetch-all-products', fetchAllProducts);
 app.use('/fetch-cart-item/:phone', fetchCartItem);
 app.use('/place-order', placedOrder);
 app.use('/login', login);
-app.use('/redirect/:item', redirectUrl);
 
 //admin panel apis
 const uploadProducts = require('./routes/h_panel/uploadProduct');
