@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
         if (!result) return res.status(400).json({ message: 'not found' });
 
         const category = result.category;
-        return res.redirect(`https://boxdelabonita.com/bag/${category}/${item}`);
+        // return res.redirect(`https://boxdelabonita.com/bag/${category}/${item}`);
+        return res.send(`${category}/${item}`);
     }).catch(err => res.status(400).json({ message: 'not found' }))
 })
 
